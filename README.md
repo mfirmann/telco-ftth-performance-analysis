@@ -44,8 +44,8 @@ Terdapat kesenjangan performa yang ekstrem antar teknisi:
 3.  **Tableau:** Visualisasi interaktif untuk operasional monitoring.
 
 ## 📄 Repository Structure
-* ![📈 FTTH Performance Analysis Report](docs/ANALYSIS.md)
-* ![📘 Data Dictionary](docs/DATA_DICTIONARY.md)
+* [📈 FTTH Performance Analysis Report](docs/ANALYSIS.md)
+* [📘 Data Dictionary](docs/DATA_DICTIONARY.md)
 
 ## 📂 Repository Structure
 * `scripts/`: Kode Python generator & Query SQL.
