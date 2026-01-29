@@ -1,48 +1,50 @@
-# 📡 FTTH Performance Analysis (BSD Cluster)
+# 📡 Telco FTTH Performance Analysis (BSD Cluster)
 
 ![Tools](https://img.shields.io/badge/Tools-Python%20|%20SQL%20|%20Tableau-blue) ![Status](https://img.shields.io/badge/Status-Completed-success)
 
 ## 📋 Executive Summary
 Project ini mensimulasikan peran **Performance Analyst** untuk mengevaluasi kualitas jaringan Fiber To The Home (FTTH) di area BSD City. Menggunakan dataset **100.000 tiket** (Jan - Des 2025), analisis ini bertujuan untuk mengidentifikasi inefisiensi teknisi dan pola gangguan infrastruktur.
 
-**Key Result:** Ditemukan bahwa **18% tiket melanggar SLA (4 Jam)**, didominasi oleh masalah *Fiber Cut* dan kinerja 2 teknisi spesifik yang membutuhkan pembinaan.
+**Key Result:** Ditemukan tingkat kegagalan SLA (Breach Rate) mencapai **18% pada teknisi tertentu**, serta dominasi masalah infrastruktur fisik (*Fiber Cut*) yang memerlukan waktu perbaikan rata-rata 5.7 jam.
 
 ## 📊 Dashboard Preview
-![FTTH Dashboard](dashboard/dashboard_full.png)
-*(Visualisasi data operasional tahun 2025)*
+![Dashboard Preview](dashboard/dashboard_overview.png)
+*(Tableau Dashboard: Memonitor KPI MTTR dan Breakdown Masalah)*
 
-## 💼 Business Problem & Goals
-* **Problem:** Meningkatnya komplain pelanggan VIP akibat durasi perbaikan yang lama (>4 Jam) dan denda penalti Managed Service.
+## 💼 Business Context
+* **Problem:** Meningkatnya komplain pelanggan akibat durasi perbaikan yang lama (>4 Jam) dan risiko penalti Managed Service.
 * **Objective:**
-  1. Menurunkan MTTR (Mean Time To Repair) di bawah 4 jam.
-  2. Mengidentifikasi teknisi dengan performa terendah untuk re-training.
-  3. Mengoptimalkan jadwal shift berdasarkan Heatmap jam sibuk.
+  1. Menurunkan MTTR (Mean Time To Repair) agar sesuai target SLA (4 Jam).
+  2. Mengidentifikasi teknisi *Underperformer* untuk program *re-training*.
+  3. Mengoptimalkan jadwal shift teknisi berdasarkan pola jam sibuk (*Peak Hour*).
 
-## 🛠️ Tech Stack
-* **Python (Pandas):** Generating 100k dummy dataset dengan distribusi probabilitas (Weighted Randomness) untuk mensimulasikan skenario dunia nyata.
-* **SQL (SQLite):** Melakukan agregasi data, perhitungan MTTR, dan filtering tiket *Breach*.
-* **Tableau:** Membuat dashboard interaktif untuk monitoring operasional harian.
+## 🔍 Key Data Insights
+Berdasarkan analisis SQL terhadap 100.000 data historis:
 
-## 🔍 Key Insights (Data-Driven)
-Berdasarkan analisis data historis 2025:
+### 1. The "Skill Gap" (Inefisiensi Manpower)
+Terdapat kesenjangan performa yang ekstrem antar teknisi:
+* **Underperformers:** Teknisi **Andi Wijaya** dan **Tono Sudirjo** memiliki Breach Rate tertinggi (**18.2%** dan **16.5%**).
+* **Top Performers:** Teknisi seperti **Budi Santoso** dan **Rudi Salim** mampu menjaga Breach Rate di angka **~2%** dengan beban kerja yang setara (~5000 tiket).
+* **Action:** Perlu *pairing* kerja antara teknisi senior (Budi) dengan teknisi junior (Andi) serta penundaan pemberian tiket *Critical* untuk teknisi yang performanya rendah.
 
-1.  **Technician Performance:**
-    * Teknisi **Andi Wijaya** dan **Tono Sudirjo** memiliki rata-rata MTTR tertinggi (5.8 Jam), jauh melampaui target.
-    * Rekomendasi: Melakukan *refresher training* teknik splicing dan manajemen waktu.
+### 2. Root Cause Analysis
+* **SLA Killer:** Masalah **Fiber Cut (Kabel Putus)** memiliki rata-rata pengerjaan **5.72 Jam**. Karena target SLA adalah 4 jam, insiden ini hampir pasti menyebabkan penalti.
+* **High Volume:** Masalah **Konfigurasi Logic** menyumbang volume tertinggi (34.885 tiket) namun sangat cepat diselesaikan (0.58 Jam).
+* **Action:** Audit vendor sipil untuk perbaikan kabel putus & implementasi *Auto-Config Bot* untuk mengurangi beban tiket Logic.
 
-2.  **Root Cause Analysis:**
-    * **Fiber Cut** adalah penyumbang durasi terlama (Avg 6.2 Jam), namun frekuensinya rendah.
-    * **Konfigurasi Logic** memiliki volume tiket tertinggi. Sering terjadi keterlambatan penanganan pada jam 10:00 - 14:00 WIB.
+### 3. Peak Hour Strategy
+* **Danger Zone:** Trafik tiket konsisten tinggi (rata-rata 8.000 tiket/jam) pada pukul **08:00 - 16:00 WIB**.
+* **Action:** Penerapan *Staggered Shift* (Shift Bertingkat), dimana gelombang kedua teknisi masuk pada pukul 10:00 untuk membackup beban puncak di siang hari.
 
-3.  **Peak Hour Strategy:**
-    * Heatmap menunjukkan lonjakan tiket signifikan pada **Senin & Selasa (09:00 - 11:00)**.
-    * Rekomendasi: Menambah personil *standby* di Node-B pada jam tersebut.
+## 🛠️ Tech Stack & Methodology
+1.  **Python (Pandas):** Generating 100k dummy dataset dengan algoritma *Weighted Randomness* untuk simulasi pola jam kerja & skill teknisi.
+2.  **SQL (SQLite):** Melakukan agregasi performa, kalkulasi selisih waktu (MTTR), dan ranking teknisi.
+3.  **Tableau:** Visualisasi interaktif untuk operasional monitoring.
 
-## 🚀 How to Use
-1.  Clone repository ini.
-2.  Install library: `pip install -r requirements.txt`
-3.  Jalankan script generator: `python scripts/data_generator.py`
-4.  Gunakan file CSV yang dihasilkan untuk analisis lebih lanjut di Tableau/SQL.
+## 📂 Repository Structure
+* `scripts/`: Kode Python generator & Query SQL.
+* `docs/`: Dokumentasi lengkap hasil query ([Lihat ANALYSIS.md](docs/ANALYSIS.md)).
+* `dashboard/`: Aset gambar visualisasi.
 
 ---
-*Disclaimer: Project ini adalah simulasi portofolio menggunakan dummy data.*
+*Disclaimer: Project ini menggunakan dummy data untuk keperluan simulasi portofolio.*
