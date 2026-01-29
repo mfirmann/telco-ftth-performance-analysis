@@ -83,4 +83,74 @@ ORDER BY Avg_Duration DESC;
 ```
 ---
 
+## 📊 Root Cause Breakdown
 
+| Root Cause | Frequency | Avg Duration (Hours) | SLA Breach Count |
+| :--- | :--- | :--- | :--- |
+| **Fiber Cut (Kabel Putus)** | 5,040 | **5.72** | 4,148 |
+| Gangguan Tiang/Kabel | 14,945 | 3.35 | 3,992 |
+| Redaman Tinggi | 25,048 | 1.91 | 305 |
+| ONT / Modem Rusak | 20,082 | 1.20 | 0 |
+| Konfigurasi Logic | 34,885 | 0.58 | 0 |
+
+### 💡 Key Insights
+* **Fiber Cut** merupakan gangguan paling kritis:
+    * Rata-rata durasi **5.72 jam**.
+    * Hampir mustahil memenuhi **SLA 4 jam** tanpa perubahan proses.
+* **Konfigurasi Logic** memiliki volume tertinggi namun **tidak menyebabkan pelanggaran SLA**, menunjukkan kategori **High Volume – Low Severity**.
+
+---
+
+## ⏰ Peak Hour & Shift Analysis
+
+### Objective
+Menentukan jam operasional tersibuk untuk optimalisasi penjadwalan teknisi.
+
+### SQL Query Analysis
+```sql
+SELECT 
+    strftime('%H', Open_Time) AS Hour,
+    COUNT(Ticket_ID) AS Volume,
+    ROUND(AVG(Duration_Hours), 2) AS Avg_MTTR
+FROM ftth_tickets
+GROUP BY Hour
+ORDER BY Volume DESC
+LIMIT 5;
+```
+### 📊 Top 5 Peak Hours
+
+| Hour (WIB) | Ticket Volume | Avg MTTR |
+| :--- | :--- | :--- |
+| **13:00** | 8,091 | 1.69 |
+| 08:00 | 8,091 | 1.71 |
+| 10:00 | 7,999 | 1.72 |
+| 15:00 | 7,969 | 1.71 |
+| 09:00 | 7,965 | 1.72 |
+
+### 💡 Key Insights
+* Beban tiket tinggi secara konsisten pada **08:00 – 16:00 WIB**.
+* Tidak terjadi penurunan volume saat jam makan siang.
+* **Lonjakan kembali terjadi pada pukul 13:00 WIB.**
+
+---
+
+## 🚀 Strategic Recommendations
+
+Berdasarkan hasil analisis, direkomendasikan tiga langkah strategis berikut:
+
+### 1️⃣ Skill-Based Pairing (Mentorship Program)
+Terapkan sistem tandem antara teknisi dengan Breach Rate >10% dan Top Performer.
+* **Fokus awal pada teknisi:** Andi Wijaya & Tono Sudirjo.
+* **Action:** Batasi penugasan tiket *Fiber Cut* kepada teknisi dengan performa SLA rendah hingga MTTR stabil.
+
+### 2️⃣ Infrastructure Vendor Audit
+Durasi *Fiber Cut* melebihi SLA secara sistemik. Tindakan yang disarankan:
+* Audit vendor sipil / splicing.
+* Negosiasi ulang *response time* dan SLA pihak ketiga.
+
+### 3️⃣ Staggered Shift Implementation
+Ubah skema kerja dari *single shift* menjadi:
+* **Shift A:** 07:00 – 15:00 (Persiapan & beban pagi).
+* **Shift B:** 10:00 – 19:00 (Backup jam puncak siang & sore).
+
+*Pendekatan ini memastikan ketersediaan teknisi maksimal pada jam kritis 10:00 – 15:00 WIB.*
