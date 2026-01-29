@@ -8,7 +8,9 @@ Project ini mensimulasikan peran **Performance Analyst** untuk mengevaluasi kual
 **Key Result:** Ditemukan tingkat kegagalan SLA (Breach Rate) mencapai **18% pada teknisi tertentu**, serta dominasi masalah infrastruktur fisik (*Fiber Cut*) yang memerlukan waktu perbaikan rata-rata 5.7 jam.
 
 ## 📊 Dashboard Preview
-![Dashboard Preview](dashboard/dashboard_overview.png)
+dashboard/ftthdashboard.png
+![Dashboard Preview](dashboard/ftthdashboard2.png)
+
 *(Tableau Dashboard: Memonitor KPI MTTR dan Breakdown Masalah)*
 
 ## 💼 Business Context
