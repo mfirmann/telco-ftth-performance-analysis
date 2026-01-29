@@ -43,7 +43,7 @@ Terdapat kesenjangan performa yang ekstrem antar teknisi:
 2.  **SQL (SQLite):** Melakukan agregasi performa, kalkulasi selisih waktu (MTTR), dan ranking teknisi.
 3.  **Tableau:** Visualisasi interaktif untuk operasional monitoring.
 
-## 📄 Repository Structure
+## 📄 Dokumen
 * [📈 FTTH Performance Analysis Report](docs/ANALYSIS.md)
 * [📘 Data Dictionary](docs/DATA_DICTIONARY.md)
 
