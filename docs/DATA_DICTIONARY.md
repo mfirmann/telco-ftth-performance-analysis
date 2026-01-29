@@ -1,11 +1,3 @@
-
----
-
-# 📘 `docs/DATA_DICTIONARY.md`
-
-> **COPY SEMUA ISI DI BAWAH INI**
-
-```markdown
 # 📘 Data Dictionary
 
 Dokumen ini menjelaskan struktur dan definisi kolom pada dataset  
