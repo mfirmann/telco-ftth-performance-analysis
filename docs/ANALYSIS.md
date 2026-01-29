@@ -44,7 +44,7 @@ FROM ftth_tickets
 GROUP BY Technician
 ORDER BY Avg_MTTR DESC
 LIMIT 5;
-
+```
 ---
 
 ## 📊 Bottom 5 Technician Performance
@@ -80,7 +80,7 @@ SELECT
 FROM ftth_tickets
 GROUP BY Root_Cause
 ORDER BY Avg_Duration DESC;
-
+```
 ---
 
 
