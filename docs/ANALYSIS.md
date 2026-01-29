@@ -45,6 +45,8 @@ GROUP BY Technician
 ORDER BY Avg_MTTR DESC
 LIMIT 5;
 
+---
+
 ## 📊 Bottom 5 Technician Performance
 
 | Technician        | Total Job | Avg MTTR (Hours) | Total Breach | Breach Rate |
@@ -78,5 +80,7 @@ SELECT
 FROM ftth_tickets
 GROUP BY Root_Cause
 ORDER BY Avg_Duration DESC;
+
+---
 
 
